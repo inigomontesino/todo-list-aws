@@ -31,18 +31,20 @@ def get_item(key, dynamodb=None):
         )
 
     except ClientError as e:
-        print(e.response['Error']['Message'])
+        print(e.response['Error']['Message'])  # pragma: no cover
     else:
         print('Result getItem:'+str(result))
         if 'Item' in result:
-            return result['Item']
+            item = result['Item']
+            return item
 
 
 def get_items(dynamodb=None):
     table = get_table(dynamodb)
     # fetch todo from the database
     result = table.scan()
-    return result['Items']
+    items = result['Items']
+    return items
 
 
 def put_item(text, dynamodb=None):
@@ -66,7 +68,7 @@ def put_item(text, dynamodb=None):
         }
 
     except ClientError as e:
-        print(e.response['Error']['Message'])
+        print(e.response['Error']['Message'])  # pragma: no cover
     else:
         return response
 
@@ -95,7 +97,7 @@ def update_item(key, text, checked, dynamodb=None):
         )
 
     except ClientError as e:
-        print(e.response['Error']['Message'])
+        print(e.response['Error']['Message'])  # pragma: no cover
     else:
         return result['Attributes']
 
@@ -111,7 +113,7 @@ def delete_item(key, dynamodb=None):
         )
 
     except ClientError as e:
-        print(e.response['Error']['Message'])
+        print(e.response['Error']['Message'])  # pragma: no cover
     else:
         return
 
